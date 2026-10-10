@@ -5,7 +5,7 @@ import org.skypro.skyshop.product.Product;
 
 public class App {
     public static void main(String[] args) {
-        Product product1 = new Product("Хлеб", 45);
+        Product product1 = new Product("Хлеб", 40);
         Product product2 = new Product("Молоко", 80);
         Product product3 = new Product("Сыр", 300);
         Product product4 = new Product("Мясо", 400);
