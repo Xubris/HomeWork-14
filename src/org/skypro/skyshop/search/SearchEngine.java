@@ -23,7 +23,7 @@ public class SearchEngine {
             if (item.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
                 result[found] = item;
                 found++;
-                if (found == 5) break;
+                if (found == 4) break;
             }
         }
         return result;
