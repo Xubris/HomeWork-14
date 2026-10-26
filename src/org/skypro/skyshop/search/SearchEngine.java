@@ -20,7 +20,7 @@ public class SearchEngine {
         int found = 0;
         for (Searchable item : items) {
             if (item == null) continue;
-            if (item.getSearchTerm().contains(query)) {
+            if (item.getSearchTerm().toLowerCase().contains(query.toLowerCase())) {
                 result[found] = item;
                 found++;
                 if (found == 5) break;
