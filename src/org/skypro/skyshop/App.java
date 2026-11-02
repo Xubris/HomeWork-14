@@ -4,10 +4,13 @@ import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
+
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -53,9 +56,26 @@ public class App {
         basket.addProduct(product3);
         basket.addProduct(product4);
         basket.addProduct(product5);
+
+        System.out.println("\n=== Исходная корзина ===");
         basket.printBasket();
 
-        SearchEngine engine = new SearchEngine(10);
+        // Демонстрация удаления продуктов по имени
+        System.out.println("\n=== Удаление продукта 'Хлеб' ===");
+        List<Product> removed = basket.removeProductsByName("Хлеб");
+        System.out.println("Удаленные продукты: " + removed);
+        basket.printBasket();
+
+        System.out.println("\n=== Удаление несуществующего продукта 'Шоколад' ===");
+        List<Product> removedNotFound = basket.removeProductsByName("Шоколад");
+        if (removedNotFound.isEmpty()) {
+            System.out.println("Список пуст");
+        } else {
+            System.out.println("Удаленные продукты: " + removedNotFound);
+        }
+        basket.printBasket();
+
+        SearchEngine engine = new SearchEngine();
         engine.add(product1);
         engine.add(product2);
         engine.add(product3);
@@ -69,8 +89,8 @@ public class App {
         printResults(engine.search("Рыба"));
 
         System.out.println("\n=== Поиск 'нет такого' ===");
-        Searchable[] notFound = engine.search("нет такого");
-        if (notFound[0] == null) {
+        List<Searchable> notFound = engine.search("нет такого");
+        if (notFound.isEmpty()) {
             System.out.println("Ничего не найдено.");
         } else {
             printResults(notFound);
@@ -93,16 +113,9 @@ public class App {
         }
     }
 
-    private static void printResults(Searchable[] results) {
-        boolean hasResults = false;
+    private static void printResults(List<Searchable> results) {
         for (Searchable s : results) {
-            if (s != null) {
-                System.out.println(s.getStringRepresentation());
-                hasResults = true;
-            }
-        }
-        if (!hasResults) {
-            System.out.println("Ничего не найдено.");
+            System.out.println(s.getStringRepresentation());
         }
     }
 }
