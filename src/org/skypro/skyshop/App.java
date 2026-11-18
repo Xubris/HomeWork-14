@@ -11,7 +11,7 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class App {
     public static void main(String[] args) {
@@ -89,7 +89,7 @@ public class App {
         printResults(engine.search("Рыба"));
 
         System.out.println("\n=== Поиск 'нет такого' ===");
-        Map<String, Searchable> notFound = engine.search("нет такого");
+        Set<Searchable> notFound = engine.search("нет такого");
         if (notFound.isEmpty()) {
             System.out.println("Ничего не найдено.");
         } else {
@@ -112,8 +112,9 @@ public class App {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
-    private static void printResults(Map<String, Searchable> results) {
-        for (Searchable s : results.values()) {
+
+    private static void printResults(Set<Searchable> results) {
+        for (Searchable s : results) {
             System.out.println(s.getStringRepresentation());
         }
     }
